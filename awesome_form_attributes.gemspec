@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'awesome_form_attributes'
-  s.version = '0.0.1'
+  s.version = '0.0.2'
   s.authors = ['Zhimeng Sun']
   s.email = ['zhimengSun@gmail.com']
   s.homepage = 'https://github.com/zhimengSun/awesome_form_attributes'
