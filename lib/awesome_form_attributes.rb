@@ -1,4 +1,5 @@
 require "rails"
+require 'awesome_form_attributes/config'
 require "awesome_form_attributes/version"
 require "awesome_form_attributes/setting"
 require "awesome_form_attributes/helpers"
