@@ -36,10 +36,13 @@ module AwesomeFormAttributes
     config.select_words = %w(优先级)
     config.boolean_words = %w(是否)
     config.file_words = %w(文件)
-    config.text_area_reg = /#{config.text_area_words.join("/")}/ 
-    config.select_reg = /#{config.select_words.join("/")}/ 
-    config.boolean_reg = /#{config.boolean_words.join("/")}/ 
-    config.file_reg = /#{config.file_words.join("/")}/ 
+    class << config
+      %w(text_area select boolean file).each do |c|
+        define_method(:"#{c}_reg") do
+         /#{config.send(:"#{c}_words").join("|")}/
+        end
+      end 
+    end
   end
 end
 
