@@ -31,9 +31,9 @@ module AwesomeFormAttributes
   end
 
   configure do |config|
-    config.default_tag = "input"
+    config.default_tag = "text_field"
     config.text_area_words = %w(描述 简介 介绍)
-    config.select_words = %w(优先级)
+    config.select_words = %w(select 类型)
     config.boolean_words = %w(是否)
     config.file_words = %w(文件)
     class << config

@@ -1,5 +1,5 @@
 AwesomeFormAttributes.configure do |config|
-  # config.default_tag = "input"
+  # config.default_tag = "text_field"
   # config.text_area_words += []
   # config.select_words += []
   # config.boolean_words += []

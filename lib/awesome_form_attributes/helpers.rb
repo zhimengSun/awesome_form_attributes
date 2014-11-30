@@ -33,5 +33,28 @@ module ActionView
       end.join
       raw content
     end
+    
+    def awesome_fileds(a, f, opts = {})
+      cs = AwesomeFormAttributes.config.config
+      text_field = cs.delete(:default_tag)
+      title = localize_attr(a)
+      cur_tag_hash = cs.select {|k, v|  title =~ /#{v.join("|")}/}.presence || {text_field: ""}
+      cur_tag = cur_tag_hash.keys.first.to_s.gsub("_words", "")
+      opts = default_styles_for(cur_tag, opts)
+      return f.send(:check_box, a, opts) if cur_tag == 'boolean'
+      f.send(cur_tag, a, opts)
+    end
+  
+    def default_styles_for(tag, opts = {})
+      {
+        text_area: {rows: 6, cols: 50},
+        text_field: {},
+        file: {},
+        select: {},
+        check_box: {},
+        boolean: {}
+      }[tag.to_sym].deep_merge(opts) rescue opts
+    end
+
   end
 end
