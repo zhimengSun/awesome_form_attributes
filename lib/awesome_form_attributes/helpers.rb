@@ -1,13 +1,11 @@
+# require File.expand_path("../shared_helper",__FILE__)
 module ActionView 
   module Helpers
+    # ApplicationHelper.send(:include,SharedHelper) if defined?(ApplicationHelper)
     def boolean_collection
       [["是", 1], ["否", 0]]
     end
 
-    def klass
-      controller_name.classify.constantize
-    end
-    
     def has_displayed_names?
       I18n.t(klass.displayed_columns_local_path).is_a?Hash
     end
@@ -19,7 +17,7 @@ module ActionView
       basic_name
     end
 
-    def table_th_columns(wrapper = :td, style = {})
+    def table_th_columns(wrapper = :th, style = {})
       join_content(wrapper, style) {|a| localize_attr(a)}
     end
 
