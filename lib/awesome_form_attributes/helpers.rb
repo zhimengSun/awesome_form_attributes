@@ -40,7 +40,9 @@ module ActionView
       cur_tag = cur_tag_hash.keys.first.to_s.gsub("_words", "")
       opts = default_styles_for(cur_tag, opts)
       return f.send(:check_box, a, opts) if cur_tag == 'boolean'
-      f.send(cur_tag, a, opts)
+      obj = f.object
+      val = cur_tag == :select ? klass.select_values(tag) : obj.send(a)
+      f.send(cur_tag, a, val, opts)
     end
   
     def default_styles_for(tag, opts = {})
