@@ -39,6 +39,7 @@ module ActionView
       title = localize_attr(a)
       cur_tag_hash = cs.select {|k, v|  title =~ /#{v.join("|")}/}.presence || {text_field: ""}
       cur_tag = cur_tag_hash.keys.first.to_s.gsub("_words", "")
+      cur_tag = "select" if a =~ /\_id\Z/
       opts = default_styles_for(cur_tag, opts)
       return f.send(:check_box, a, opts) if cur_tag == 'boolean'
       select_tag = cur_tag == "select"
@@ -51,7 +52,7 @@ module ActionView
         text_area: {rows: 6, cols: 50},
         text_field: {},
         file: {},
-        select: {},
+        select: {include_blank: true},
         check_box: {},
         boolean: {}
       }[tag.to_sym].deep_merge(opts) rescue opts

@@ -7,7 +7,7 @@ module UsedAttrColumns
       I18n.t(self.default_local_path).try(:keys) || []
     end
   
-    def select_values(tag)
+    def select_values(tag, obj = nil)
       []
     end
 
