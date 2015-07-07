@@ -31,20 +31,24 @@ module ActionView
       end.join
       raw content
     end
+
+    def tag_for_attr(att)
+      return "select" if att =~ /\_id\Z/
+      cs = AwesomeFormAttributes.config.config
+      text_field = cs.delete(:default_tag)
+      title = localize_attr(att)
+      cur_tag_hash = cs.select {|k, v|  title =~ /#{v.join("|")}/}.presence || {text_field: ""}
+      cur_tag_hash.keys.first.to_s.gsub("_words", "")
+    end
     
     def awesome_fileds(a, f, opts = {})
       obj = single_obj
-      cs = AwesomeFormAttributes.config.config
-      text_field = cs.delete(:default_tag)
-      title = localize_attr(a)
-      cur_tag_hash = cs.select {|k, v|  title =~ /#{v.join("|")}/}.presence || {text_field: ""}
-      cur_tag = cur_tag_hash.keys.first.to_s.gsub("_words", "")
-      cur_tag = "select" if a =~ /\_id\Z/
+      cur_tag = tag_for_attr(a)
       opts = default_styles_for(cur_tag, opts)
       return f.send(:check_box, a, opts) if cur_tag == 'boolean'
       select_tag = cur_tag == "select"
       val = select_tag ? klass.select_values(a, obj) : obj.send(a)
-      select_tag ? f.send(cur_tag, a, val, opts) : f.send(cur_tag, a, opts)
+      select_tag ? f.send(cur_tag, a, val, opts[:opts] || {}, opts[:html_opts] || {}) : f.send(cur_tag, a, opts)
     end
   
     def default_styles_for(tag, opts = {})
@@ -52,7 +56,7 @@ module ActionView
         text_area: {rows: 6, cols: 50},
         text_field: {},
         file: {},
-        select: {include_blank: true},
+        select: {opts: {include_blank: true}},
         check_box: {},
         boolean: {}
       }[tag.to_sym].deep_merge(opts) rescue opts

@@ -6,9 +6,13 @@ module UsedAttrColumns
     def used_attrs
       I18n.t(self.default_local_path).try(:keys) || []
     end
+
+    def select_options(tag, obj = nil)
+      {} 
+    end
   
     def select_values(tag, obj = nil)
-      []
+      select_options(tag, obj)[tag.to_s] || []
     end
 
     def short_used_attrs
