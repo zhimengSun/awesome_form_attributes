@@ -33,6 +33,7 @@ module ActionView
     end
     
     def awesome_fileds(a, f, opts = {})
+      obj = single_obj
       cs = AwesomeFormAttributes.config.config
       text_field = cs.delete(:default_tag)
       title = localize_attr(a)
@@ -40,9 +41,9 @@ module ActionView
       cur_tag = cur_tag_hash.keys.first.to_s.gsub("_words", "")
       opts = default_styles_for(cur_tag, opts)
       return f.send(:check_box, a, opts) if cur_tag == 'boolean'
-      obj = f.object
-      val = cur_tag == :select ? klass.select_values(tag) : obj.send(a)
-      f.send(cur_tag, a, val, opts)
+      select_tag = cur_tag == "select"
+      val = select_tag ? klass.select_values(a, obj) : obj.send(a)
+      select_tag ? f.send(cur_tag, a, val, opts) : f.send(cur_tag, a, opts)
     end
   
     def default_styles_for(tag, opts = {})
