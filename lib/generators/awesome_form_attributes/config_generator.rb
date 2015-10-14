@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module AwesomeFormAttributes
   module Generators
     class ConfigGenerator < Rails::Generators::Base

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # require File.expand_path("../shared_helper",__FILE__)
 module ActionView 
   module Helpers

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require "rails"
 require 'awesome_form_attributes/config'
 require "awesome_form_attributes/version"

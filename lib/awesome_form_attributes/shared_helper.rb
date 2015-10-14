@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module SharedHelper
   def klass
     controller_name.classify.constantize
