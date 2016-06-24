@@ -13,7 +13,7 @@ module UsedAttrColumns
     end
   
     def select_values(tag, obj = nil)
-      select_options[tag.to_s] || []
+      select_options[tag] || select_options[tag.to_s] || []
     end
 
     def short_used_attrs
