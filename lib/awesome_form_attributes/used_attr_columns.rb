@@ -4,7 +4,7 @@ module UsedAttrColumns
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def used_attrs
+    def used_attrs(action_page = "new")
       I18n.t(self.default_local_path).try(:keys) || []
     end
 
